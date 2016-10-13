@@ -8,6 +8,7 @@
 
 import logging
 import os
+import sys
 from collections import OrderedDict
 
 from translate.filters import checks
@@ -56,6 +57,8 @@ PROJECT_CHECKERS = {
     "drupal": checks.DrupalChecker,
     "terminology": checks.TermChecker,
 }
+
+LOADDATA_MODE = len(sys.argv) > 1 and sys.argv[1] == 'loaddata'
 
 
 class ProjectManager(models.Manager):
@@ -597,6 +600,9 @@ class ProjectSet(VirtualResource, ProjectURLMixin):
 
 @receiver([post_delete, post_save])
 def invalidate_resources_cache(**kwargs):
+    if LOADDATA_MODE:
+        return
+
     instance = kwargs["instance"]
     if instance.__class__.__name__ not in ['Directory', 'Store']:
         return
