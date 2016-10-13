@@ -105,6 +105,19 @@ test-js:
 publish-pypi:
 	python setup.py sdist ${FORMATS} upload
 
+dumpdata:
+	${POOTLE_CMD} flush --no-input
+	${POOTLE_CMD} migrate
+	${POOTLE_CMD} initdb
+
+	@echo "Provide the following password (twice): 12345"
+	${POOTLE_CMD} createsuperuser --username admin --email admin@localhost
+
+	${POOTLE_CMD} dumpdata >~dumpdata.json
+
+loaddata:
+	${POOTLE_CMD} loaddata ~dumpdata.json
+
 help:
 	@echo "Help"
 	@echo "----"
