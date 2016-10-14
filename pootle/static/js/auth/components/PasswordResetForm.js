@@ -8,7 +8,6 @@
 
 import assign from 'object-assign';
 import React from 'react';
-import { PureRenderMixin } from 'react-addons-pure-render-mixin';
 
 import FormElement from 'components/FormElement';
 import FormMixin from 'mixins/FormMixin';
@@ -18,17 +17,21 @@ import AuthContent from './AuthContent';
 import AuthProgress from './AuthProgress';
 
 
-const PasswordResetForm = React.createClass({
+class PasswordResetForm extends React.PureComponent {
 
-  propTypes: {
-    dispatch: React.PropTypes.func.isRequired,
-    formErrors: React.PropTypes.object.isRequired,
-    isLoading: React.PropTypes.bool.isRequired,
-    tokenFailed: React.PropTypes.bool.isRequired,
-    redirectTo: React.PropTypes.string,
-  },
+  static propTypes() {
+    return {
+      dispatch: React.PropTypes.func.isRequired,
+      formErrors: React.PropTypes.object.isRequired,
+      isLoading: React.PropTypes.bool.isRequired,
+      tokenFailed: React.PropTypes.bool.isRequired,
+      redirectTo: React.PropTypes.string,
+    };
+  }
 
-  mixins: [PureRenderMixin, FormMixin],
+  static mixins() {
+    return [FormMixin];
+  }
 
   /* Lifecycle */
 
@@ -40,13 +43,13 @@ const PasswordResetForm = React.createClass({
     return {
       formData: assign({}, this.initialData),
     };
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
     if (this.state.errors !== nextProps.formErrors) {
       this.setState({ errors: nextProps.formErrors });
     }
-  },
+  }
 
 
   /* Handlers */
@@ -54,14 +57,14 @@ const PasswordResetForm = React.createClass({
   handlePasswordReset(e) {
     e.preventDefault();
     this.props.dispatch(gotoScreen('requestPasswordReset'));
-  },
+  }
 
   handleFormSubmit(e) {
     e.preventDefault();
 
     const url = window.location.pathname;
     this.props.dispatch(passwordReset(this.state.formData, url));
-  },
+  }
 
 
   /* Others */
@@ -70,7 +73,7 @@ const PasswordResetForm = React.createClass({
     const { formData } = this.state;
     return (formData.password1 !== '' && formData.password2 !== '' &&
             formData.password1 === formData.password2);
-  },
+  }
 
 
   /* Layout */
@@ -91,7 +94,7 @@ const PasswordResetForm = React.createClass({
         </div>
       </AuthContent>
     );
-  },
+  }
 
   render() {
     if (this.props.tokenFailed) {
@@ -146,9 +149,9 @@ const PasswordResetForm = React.createClass({
         </form>
       </AuthContent>
     );
-  },
+  }
 
-});
+}
 
 
 export default PasswordResetForm;

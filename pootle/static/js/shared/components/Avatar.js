@@ -8,29 +8,28 @@
 
 import md5 from 'md5';
 import React, { PropTypes } from 'react';
-import { PureRenderMixin } from 'react-addons-pure-render-mixin';
 
 
-const Avatar = React.createClass({
+class Avatar extends React.PureComponent {
 
   // FIXME: be smarter with props validation, e.g. `email` should be required if
   // `src` is missing etc.
-  propTypes: {
-    email: PropTypes.string,
-    label: PropTypes.string,
-    size: PropTypes.number,
-    src: PropTypes.string,
-    title: PropTypes.string,
-    username: PropTypes.string,
-  },
+  static propTypes() {
+    return {
+      email: PropTypes.string,
+      label: PropTypes.string,
+      size: PropTypes.number,
+      src: PropTypes.string,
+      title: PropTypes.string,
+      username: PropTypes.string,
+    };
+  }
 
-  mixins: [PureRenderMixin],
-
-  getDefaultProps() {
+  static defaultProps() {
     return {
       size: 80,
     };
-  },
+  }
 
   render() {
     const { email } = this.props;
@@ -71,9 +70,9 @@ const Avatar = React.createClass({
     }
 
     return icon;
-  },
+  }
 
-});
+}
 
 
 export default Avatar;

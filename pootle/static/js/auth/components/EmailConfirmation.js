@@ -7,18 +7,17 @@
  */
 
 import React from 'react';
-import { PureRenderMixin } from 'react-addons-pure-render-mixin';
 
 import AuthContent from './AuthContent';
 
 
-const EmailConfirmation = React.createClass({
+class EmailConfirmation extends React.PureComponent {
 
-  propTypes: {
-    onClose: React.PropTypes.func.isRequired,
-  },
-
-  mixins: [PureRenderMixin],
+  static propTypes() {
+    return {
+      onClose: React.PropTypes.func.isRequired,
+    };
+  }
 
   /* Layout */
 
@@ -36,9 +35,9 @@ const EmailConfirmation = React.createClass({
         </div>
       </AuthContent>
     );
-  },
+  }
 
-});
+}
 
 
 export default EmailConfirmation;

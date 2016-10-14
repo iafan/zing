@@ -8,7 +8,6 @@
  */
 
 import React, { PropTypes } from 'react';
-import { PureRenderMixin } from 'react-addons-pure-render-mixin';
 
 import Avatar from 'components/Avatar';
 import TimeSince from 'components/TimeSince';
@@ -30,23 +29,23 @@ SourceString.propTypes = {
   url: PropTypes.string.isRequired,
 };
 
-const UserEvent = React.createClass({
+class UserEvent extends React.PureComponent {
 
-  propTypes: {
-    displayName: PropTypes.string,
-    email: PropTypes.string.isRequired,
-    timestamp: PropTypes.number,
-    type: PropTypes.number.isRequired,
-    unitSource: PropTypes.string.isRequired,
-    unitUrl: PropTypes.string.isRequired,
+  static propTypes() {
+    return {
+      displayName: PropTypes.string,
+      email: PropTypes.string.isRequired,
+      timestamp: PropTypes.number,
+      type: PropTypes.number.isRequired,
+      unitSource: PropTypes.string.isRequired,
+      unitUrl: PropTypes.string.isRequired,
 
-    checkName: PropTypes.string,
-    checkDisplayName: PropTypes.string,
-    translationActionType: PropTypes.number,
-    username: PropTypes.string.isRequired,
-  },
-
-  mixins: [PureRenderMixin],
+      checkName: PropTypes.string,
+      checkDisplayName: PropTypes.string,
+      translationActionType: PropTypes.number,
+      username: PropTypes.string.isRequired,
+    };
+  }
 
   getActionText(user) {
     const { checkName } = this.props;
@@ -122,7 +121,7 @@ const UserEvent = React.createClass({
     }
 
     return [user];
-  },
+  }
 
   render() {
     const avatar = (
@@ -148,9 +147,9 @@ const UserEvent = React.createClass({
         />
       </div>
     );
-  },
+  }
 
-});
+}
 
 
 export default UserEvent;

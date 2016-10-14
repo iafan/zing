@@ -8,27 +8,30 @@
 
 import React from 'react';
 
+import _ from 'underscore';
 import AutosizeTextarea from './AutosizeTextarea';
 
 
-const FormValueInput = React.createClass({
+class FormValueInput extends React.Component {
 
-  propTypes: {
-    handleChange: React.PropTypes.func.isRequired,
-    autosize: React.PropTypes.bool,
-    type: React.PropTypes.string,
-    value: React.PropTypes.string,
-  },
+  static propTypes() {
+    return {
+      handleChange: React.PropTypes.func.isRequired,
+      autosize: React.PropTypes.bool,
+      type: React.PropTypes.string,
+      value: React.PropTypes.string,
+    };
+  }
 
-  getDefaultProps() {
+  static defaultProps() {
     return {
       autosize: true,
     };
-  },
+  }
 
   handleChange(e) {
     this.props.handleChange(e.target.name, e.target.value);
-  },
+  }
 
 
   render() {
@@ -36,7 +39,7 @@ const FormValueInput = React.createClass({
       if (this.props.autosize) {
         return (
           <AutosizeTextarea
-            onChange={this.handleChange}
+            onChange={ (e) => this.handleChange(e) }
             {...this.props}
           />
         );
@@ -44,16 +47,21 @@ const FormValueInput = React.createClass({
 
       return (
         <textarea
-          onChange={this.handleChange}
+          onChange={ (e) => this.handleChange(e) }
           {...this.props}
         />
       );
     }
 
-    return <input onChange={this.handleChange} {...this.props} />;
-  },
+    return (
+      <input
+        onChange={ (e) => this.handleChange(e) }
+        {..._.omit(this.props, 'handleChange', 'errors')}
+      />
+    );
+  }
 
-});
+}
 
 
 export default FormValueInput;

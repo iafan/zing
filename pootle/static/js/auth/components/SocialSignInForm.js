@@ -7,23 +7,22 @@
  */
 
 import React from 'react';
-import { PureRenderMixin } from 'react-addons-pure-render-mixin';
 
 
-const SocialSignInForm = React.createClass({
+class SocialSignInForm extends React.PureComponent {
 
-  propTypes: {
-    socialAuthProviders: React.PropTypes.array.isRequired,
-  },
-
-  mixins: [PureRenderMixin],
+  static propTypes() {
+    return {
+      socialAuthProviders: React.PropTypes.array.isRequired,
+    };
+  }
 
   /* Handlers */
 
   handleClick(url) {
     const nextURL = window.location.pathname + window.location.hash;
     window.location = `${url}?next=${encodeURIComponent(nextURL)}`;
-  },
+  }
 
 
   /* Layout */
@@ -38,7 +37,7 @@ const SocialSignInForm = React.createClass({
         {interpolate(gettext('Sign In With %s'), [socialAuth.name])}
       </button>
     );
-  },
+  }
 
   render() {
     const signInWarningMsg = gettext(
@@ -52,9 +51,9 @@ const SocialSignInForm = React.createClass({
         <p>{signInWarningMsg}</p>
       </div>
     );
-  },
+  }
 
-});
+}
 
 
 export default SocialSignInForm;

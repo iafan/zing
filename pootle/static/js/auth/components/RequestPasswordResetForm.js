@@ -8,7 +8,6 @@
 
 import assign from 'object-assign';
 import React from 'react';
-import { PureRenderMixin } from 'react-addons-pure-render-mixin';
 
 import FormElement from 'components/FormElement';
 import FormMixin from 'mixins/FormMixin';
@@ -18,33 +17,38 @@ import AuthContent from './AuthContent';
 import RequestPasswordResetProgress from './RequestPasswordResetProgress';
 
 
-const RequestPasswordResetForm = React.createClass({
+class RequestPasswordResetForm extends React.PureComponent {
 
-  propTypes: {
-    canRegister: React.PropTypes.bool.isRequired,
-    dispatch: React.PropTypes.func.isRequired,
-    formErrors: React.PropTypes.object.isRequired,
-    isLoading: React.PropTypes.bool.isRequired,
-  },
+  static propTypes() {
+    return {
+      canRegister: React.PropTypes.bool.isRequired,
+      dispatch: React.PropTypes.func.isRequired,
+      formErrors: React.PropTypes.object.isRequired,
+      isLoading: React.PropTypes.bool.isRequired,
+    };
+  }
 
-  mixins: [PureRenderMixin, FormMixin],
+  static mixins() { // FIXME: this doesn't work
+    return [FormMixin];
+  }
 
   /* Lifecycle */
 
-  getInitialState() {
+  constructor() {
+    super();
     this.initialData = {
       email: '',
     };
-    return {
+    this.state = {
       formData: assign({}, this.initialData),
     };
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
     if (this.state.errors !== nextProps.formErrors) {
       this.setState({ errors: nextProps.formErrors });
     }
-  },
+  }
 
 
   /* Handlers */
@@ -52,24 +56,24 @@ const RequestPasswordResetForm = React.createClass({
   handleSignIn(e) {
     e.preventDefault();
     this.props.dispatch(gotoScreen('signIn'));
-  },
+  }
 
   handleSignUp(e) {
     e.preventDefault();
     this.props.dispatch(gotoScreen('signUp'));
-  },
+  }
 
   handleFormSubmit(e) {
     e.preventDefault();
     this.props.dispatch(requestPasswordReset(this.state.formData));
-  },
+  }
 
 
   /* Others */
 
   hasData() {
     return this.state.formData.email !== '';
-  },
+  }
 
 
   /* Layout */
@@ -127,9 +131,9 @@ const RequestPasswordResetForm = React.createClass({
         </form>
       </AuthContent>
     );
-  },
+  }
 
-});
+}
 
 
 export default RequestPasswordResetForm;

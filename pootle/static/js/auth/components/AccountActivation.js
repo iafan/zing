@@ -7,19 +7,18 @@
  */
 
 import React from 'react';
-import { PureRenderMixin } from 'react-addons-pure-render-mixin';
 
 import AuthContent from './AuthContent';
 
 
-const AccountActivation = React.createClass({
+class AccountActivation extends React.PureComponent {
 
-  propTypes: {
-    onClose: React.PropTypes.func.isRequired,
-    signUpEmail: React.PropTypes.string,
-  },
-
-  mixins: [PureRenderMixin],
+  static propTypes() {
+    return {
+      onClose: React.PropTypes.func.isRequired,
+      signUpEmail: React.PropTypes.string,
+    };
+  }
 
 
   /* Layout */
@@ -63,9 +62,9 @@ const AccountActivation = React.createClass({
         </div>
       </AuthContent>
     );
-  },
+  }
 
-});
+}
 
 
 export default AccountActivation;

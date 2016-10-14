@@ -8,21 +8,20 @@
  */
 
 import React, { PropTypes } from 'react';
-import { PureRenderMixin } from 'react-addons-pure-render-mixin';
 import _ from 'underscore';
 
 import TimeSince from 'components/TimeSince';
 
 
-const LastUpdate = React.createClass({
+class LastUpdate extends React.PureComponent {
 
-  propTypes: {
-    timestamp: PropTypes.number.isRequired,
-    unitSource: PropTypes.string.isRequired,
-    unitUrl: PropTypes.string.isRequired,
-  },
-
-  mixins: [PureRenderMixin],
+  static propTypes() {
+    return {
+      timestamp: PropTypes.number.isRequired,
+      unitSource: PropTypes.string.isRequired,
+      unitUrl: PropTypes.string.isRequired,
+    };
+  }
 
   getActionText() {
     const { unitSource } = this.props;
@@ -31,7 +30,7 @@ const LastUpdate = React.createClass({
     return {
       __html: `<i><a href="${unitUrl}">${_.escape(unitSource)}</a></i>`,
     };
-  },
+  }
 
   render() {
     return (
@@ -45,9 +44,9 @@ const LastUpdate = React.createClass({
         />
       </div>
     );
-  },
+  }
 
-});
+}
 
 
 export default LastUpdate;

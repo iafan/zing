@@ -7,32 +7,26 @@
  */
 
 import React from 'react';
-import { PureRenderMixin } from 'react-addons-pure-render-mixin';
 
 
-const Tabs = React.createClass({
+class Tabs extends React.PureComponent {
 
-  propTypes: {
-    children: React.PropTypes.node.isRequired,
-    initialTab: React.PropTypes.number,
-    onChange: React.PropTypes.func,
-  },
-
-  mixins: [PureRenderMixin],
+  static propTypes() {
+    return {
+      children: React.PropTypes.node.isRequired,
+      initialTab: React.PropTypes.number,
+      onChange: React.PropTypes.func,
+    };
+  }
 
   /* Lifecycle */
 
-  getDefaultProps() {
-    return {
-      initialTab: 0,
+  constructor() {
+    super();
+    this.state = {
+      selectedTab: 0/*this.defaultProps.initialTab*/,
     };
-  },
-
-  getInitialState() {
-    return {
-      selectedTab: this.props.initialTab,
-    };
-  },
+  }
 
 
   /* Handlers */
@@ -43,7 +37,7 @@ const Tabs = React.createClass({
     if (this.props.onChange) {
       this.props.onChange(index);
     }
-  },
+  }
 
 
   /* Layout */
@@ -53,7 +47,7 @@ const Tabs = React.createClass({
 
     // TODO: move to a function, retrieve values via destructuring assig.
     const tabList = React.Children.map(this.props.children, (child, index) => {
-      const elementType = child.type.displayName || child.type;
+      const elementType = child.type.name;
       // FIXME: validate via custom propTypes
       if (elementType !== 'Tab') {
         throw new Error(`
@@ -69,7 +63,7 @@ const Tabs = React.createClass({
 
       return React.cloneElement(child, {
         key: index,
-        onClick: this.handleClick,
+        onClick: (e) => this.handleClick(e),
         selected: isActive,
         tabIndex: index,
       });
@@ -85,9 +79,13 @@ const Tabs = React.createClass({
         </div>
       </div>
     );
-  },
+  }
 
-});
+}
+
+Tabs.defaultProps = {
+  initialTab: 0,
+};
 
 
 export default Tabs;

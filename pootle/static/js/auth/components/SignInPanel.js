@@ -7,7 +7,6 @@
  */
 
 import React from 'react';
-import { PureRenderMixin } from 'react-addons-pure-render-mixin';
 
 import Tab from 'components/Tab';
 import Tabs from 'components/Tabs';
@@ -21,23 +20,23 @@ import SocialSignInForm from './SocialSignInForm';
 const SIGNIN_TAB_COOKIE_NAME = 'pootle-auth-signin-tab';
 
 
-const SignInPanel = React.createClass({
+class SignInPanel extends React.PureComponent {
 
-  propTypes: {
-    canRegister: React.PropTypes.bool.isRequired,
-    formErrors: React.PropTypes.object.isRequired,
-    isLoading: React.PropTypes.bool.isRequired,
-    socialAuthProviders: React.PropTypes.array.isRequired,
-    redirectTo: React.PropTypes.string,
-  },
-
-  mixins: [PureRenderMixin],
+  static propTypes() {
+    return {
+      canRegister: React.PropTypes.bool.isRequired,
+      formErrors: React.PropTypes.object.isRequired,
+      isLoading: React.PropTypes.bool.isRequired,
+      socialAuthProviders: React.PropTypes.array.isRequired,
+      redirectTo: React.PropTypes.string,
+    };
+  }
 
   /* Handlers */
 
   handleChange(index) {
     cookie(SIGNIN_TAB_COOKIE_NAME, index, { path: '/' });
-  },
+  }
 
 
   /* Layout */
@@ -65,9 +64,9 @@ const SignInPanel = React.createClass({
         </Tab>
       </Tabs>
     );
-  },
+  }
 
-});
+}
 
 
 export default SignInPanel;

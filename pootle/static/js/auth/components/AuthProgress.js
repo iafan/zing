@@ -7,18 +7,17 @@
  */
 
 import React from 'react';
-import { PureRenderMixin } from 'react-addons-pure-render-mixin';
 
 import AuthContent from './AuthContent';
 
 
-const AuthProgress = React.createClass({
+class AuthProgress extends React.PureComponent {
 
-  propTypes: {
-    msg: React.PropTypes.string.isRequired,
-  },
-
-  mixins: [PureRenderMixin],
+  static propTypes() {
+    return {
+      msg: React.PropTypes.string.isRequired,
+    };
+  }
 
   render() {
     const msgStyle = {
@@ -29,9 +28,9 @@ const AuthProgress = React.createClass({
         <p style={msgStyle}>{this.props.msg}</p>
       </AuthContent>
     );
-  },
+  }
 
-});
+}
 
 
 export default AuthProgress;

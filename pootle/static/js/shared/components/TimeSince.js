@@ -8,41 +8,40 @@
  */
 
 import React, { PropTypes } from 'react';
-import { PureRenderMixin } from 'react-addons-pure-render-mixin';
 
 import { relativeTime } from 'utils/relativeTime';
 
 
-const TimeSince = React.createClass({
+class TimeSince extends React.PureComponent {
 
-  propTypes: {
-    timestamp: PropTypes.number,
-  },
-
-  mixins: [PureRenderMixin],
+  static propTypes() {
+    return {
+      timestamp: PropTypes.number,
+    };
+  }
 
   componentWillMount() {
     this.tickTimer = null;
 
     this.tick({ refresh: false });
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.timestamp !== this.props.timestamp) {
       this.cleanup();
     }
-  },
+  }
 
   componentWillUnmount() {
     this.cleanup();
-  },
+  }
 
   cleanup() {
     if (this.tickTimer !== null) {
       clearTimeout(this.tickTimer);
       this.tickTimer = null;
     }
-  },
+  }
 
   tick(opts = { refresh: true }) {
     const past = new Date(this.props.timestamp * 1000);
@@ -66,7 +65,7 @@ const TimeSince = React.createClass({
     if (opts.refresh) {
       this.forceUpdate();
     }
-  },
+  }
 
   render() {
     const d = new Date(this.props.timestamp * 1000);
@@ -80,14 +79,13 @@ const TimeSince = React.createClass({
         className="extra-item-meta"
         title={d.toUTCString()}
         dateTime={d.toUTCString()}
-        {...this.props}
       >
         {relativeTime(d)}
       </time>
     );
-  },
+  }
 
-});
+}
 
 
 export default TimeSince;

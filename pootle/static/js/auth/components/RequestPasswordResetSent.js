@@ -7,7 +7,6 @@
  */
 
 import React from 'react';
-import { PureRenderMixin } from 'react-addons-pure-render-mixin';
 
 import { requestPasswordReset } from '../actions';
 import AuthContent from './AuthContent';
@@ -21,8 +20,6 @@ const RequestPasswordResetSent = React.createClass({
     isLoading: React.PropTypes.bool.isRequired,
     resetEmail: React.PropTypes.string.isRequired,
   },
-
-  mixins: [PureRenderMixin],
 
   /* Handlers */
 
@@ -62,7 +59,7 @@ const RequestPasswordResetSent = React.createClass({
           <div>
             <button
               className="btn btn-primary"
-              onClick={this.handleResendEmail}
+              onClick={ (e) => this.handleResendEmail(e) }
             >
               {gettext('Resend Email')}
             </button>
@@ -75,4 +72,4 @@ const RequestPasswordResetSent = React.createClass({
 });
 
 
-export default RequestPasswordResetSent;
+export default React.PureComponent(RequestPasswordResetSent);

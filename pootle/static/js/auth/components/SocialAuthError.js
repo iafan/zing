@@ -7,7 +7,6 @@
  */
 
 import React from 'react';
-import { PureRenderMixin } from 'react-addons-pure-render-mixin';
 
 import AuthContent from './AuthContent';
 
@@ -17,8 +16,6 @@ const SocialAuthError = React.createClass({
   propTypes: {
     socialError: React.PropTypes.object,
   },
-
-  mixins: [PureRenderMixin],
 
   /* Layout */
 
@@ -59,4 +56,4 @@ const SocialAuthError = React.createClass({
 });
 
 
-export default SocialAuthError;
+export default React.PureComponent(SocialAuthError);

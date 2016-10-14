@@ -8,19 +8,19 @@
 
 import assign from 'object-assign';
 import React from 'react';
-import { PureRenderMixin } from 'react-addons-pure-render-mixin';
 
 
-const AuthContent = React.createClass({
-  propTypes: {
-    children: React.PropTypes.node,
-    style: React.PropTypes.object,
-  },
+class AuthContent extends React.PureComponent {
 
-  mixins: [PureRenderMixin],
+  static propTypes() {
+    return {
+      children: React.PropTypes.node,
+      style: React.PropTypes.object,
+    };
+  }
 
   render() {
-    // FIXME: use flexbox when possible
+    // FIXME: use flexbox when possible!
     const outer = assign({
       display: 'table',
       height: '22em',
@@ -41,9 +41,8 @@ const AuthContent = React.createClass({
         </div>
       </div>
     );
-  },
+  }
 
-});
-
+}
 
 export default AuthContent;

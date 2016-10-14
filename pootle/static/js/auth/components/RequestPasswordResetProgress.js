@@ -7,7 +7,6 @@
  */
 
 import React from 'react';
-import { PureRenderMixin } from 'react-addons-pure-render-mixin';
 
 import AuthProgress from './AuthProgress';
 
@@ -18,8 +17,6 @@ const RequestPasswordResetProgress = React.createClass({
     email: React.PropTypes.string.isRequired,
   },
 
-  mixins: [PureRenderMixin],
-
   render() {
     const sendingMsg = interpolate(gettext('Sending email to %s...'),
                                    [this.props.email]);
@@ -29,4 +26,4 @@ const RequestPasswordResetProgress = React.createClass({
 });
 
 
-export default RequestPasswordResetProgress;
+export default React.PureComponent(RequestPasswordResetProgress);

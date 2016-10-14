@@ -8,19 +8,18 @@
 
 import cx from 'classnames';
 import React from 'react';
-import { PureRenderMixin } from 'react-addons-pure-render-mixin';
 
 
-const Tab = React.createClass({
+class Tab extends React.PureComponent {
 
-  propTypes: {
-    onClick: React.PropTypes.func, // Required but added dynamically
-    tabIndex: React.PropTypes.number, // Required but added dynamically
-    title: React.PropTypes.string.isRequired,
-    selected: React.PropTypes.bool,
-  },
-
-  mixins: [PureRenderMixin],
+  static propTypes() {
+    return {
+      onClick: React.PropTypes.func, // Required but added dynamically
+      tabIndex: React.PropTypes.number, // Required but added dynamically
+      title: React.PropTypes.string.isRequired,
+      selected: React.PropTypes.bool,
+    };
+  }
 
   render() {
     const classes = cx({
@@ -45,9 +44,9 @@ const Tab = React.createClass({
         {this.props.title}
       </li>
     );
-  },
+  }
 
-});
+}
 
 
 export default Tab;

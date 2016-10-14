@@ -6,20 +6,19 @@
  * AUTHORS file for copyright and authorship information.
  */
 
-import React, { PropTypes } from 'react';
-import { PureRenderMixin } from 'react-addons-pure-render-mixin';
+import React from 'react';
 
 import TimeSince from 'components/TimeSince';
 import { tct } from 'utils/i18n';
 
-const UploadTimeSince = React.createClass({
+class UploadTimeSince extends React.PureComponent {
 
-  propTypes: {
-    dateTime: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-  },
-
-  mixins: [PureRenderMixin],
+  static propTypes() {
+    return {
+      dateTime: React.PropTypes.string.isRequired,
+      title: React.PropTypes.string.isRequired,
+    };
+  }
 
   render() {
     const timeSince = (
@@ -34,9 +33,9 @@ const UploadTimeSince = React.createClass({
         {tct('%(timeSince)s via file upload', { timeSince })}
       </span>
     );
-  },
+  }
 
-});
+}
 
 
 export default UploadTimeSince;
